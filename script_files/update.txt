@@ -1,0 +1,7 @@
+cd ../
+
+git pull
+
+echo "L'application a été mise à jour!"
+
+sleep 20
