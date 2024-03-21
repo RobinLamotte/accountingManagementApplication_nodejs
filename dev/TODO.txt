@@ -1,0 +1,12 @@
+base de données:
+création d'une base de donnée cohérente
+
+installation:
+création d'un fichier executable windows pour installation de tous les modules nécéssaires
+création d'un script de mise a jour avec token d'autorisation github pour lecture mais pas pour ecriture
+
+documentations:
+feuille de route complete
+dsd complet
+diagramme prototype du site web
+
