@@ -1,7 +1,3 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
-
-
 <section>
    <h1>Liste des transactions</h1>
    <p>
@@ -11,8 +7,8 @@
                 <th>ID transaction</th>
                 <th>Date</th>
                 <th>Montant</th>
-                <th>Description</th>
                 <th>Compte</th>
+                <th>Catégorie</th>
                 <th></th>
 
             </tr>
@@ -21,8 +17,8 @@
                     <td>{{this.id_transaction}}</td>
                     <td>{{this.date}}</td>
                     <td>{{this.montant}}</td>
-                    <td>{{this.description}}</td>
-                    <td>{{this.id_compte}}</td> 
+                    <td>{{this.categorie}}</td>
+                    <td>{{this.compte}}</td> 
                     <td>
                         <form action="transactions/details"> 
                             <input type="hidden" name="id_transaction" value={{this.id_transaction}}>
@@ -37,24 +33,29 @@
                     </td>
                 </tr>
             {{/each}}
+            <tr>
+                <form action="transactions/add">
+                        <td><input type="text" name="n_date">Date</td>
+                        <td><input type="text" name="n_montant">Montant</td>
+                        <td>
+                            <input type="select" name="n_categorie">
+                                {{#each table_categories}}
+                                    <option value="{{this.id_categorie}}">{{this.nom}}</option>
+                                {{/each}}
+                            </input>
+                        </td>
+                        <td>
+                             <input type="select" name="n_compte">
+                                {{#each table_comptes}}
+                                    <option value="{{this.id_compte}}">{{this.nom}}</option>
+                                {{/each}}
+                            </input>
+                        </td>
+                        <td><input type="submit" value="Ajouter"></td>
+                </form>
+           </tr>
         </table>
    </p>
 
-    <p>
-        <table>
-            <tr>
-                <th>ID catégorie</th>
-                <th>Type</th>
-                <th>Montant</th>
-            </tr>
-            {{#each table_categories}}
-                <tr>
-                    <td>{{this.id_categorie}}</td>
-                    <td>{{this.type}}</td>
-                    <td>{{this.montant_prevu}}</td>
-                </tr>
-            {{/each}}
-        </table>
-    </p>
 </section>
 
