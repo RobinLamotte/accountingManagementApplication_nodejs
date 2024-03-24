@@ -1,5 +1,6 @@
 const db = require('../models/db_conf.js'); 
 
+
 const id_user = 1; //voir session
 
 module.exports.list = () => {

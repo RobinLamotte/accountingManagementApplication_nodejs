@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
   console.table(table_transactions);
   console.table(table_categories);
 
-  res.render('index', { title: 'Express', table_transactions, table_categories });
+  res.render('index.hbs', { title: 'Express', table_transactions, table_categories });
 });
 
 module.exports = router;

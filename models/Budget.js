@@ -10,3 +10,7 @@ module.exports.list = () => {
 
 
 
+//"SELECT b.id_categorie, b.mois, b.annee, b.montant_prevu, b.commentaires, SUM(t.montant) AS somme_transactions FROM budget_du_mois_par_categories AS b LEFT JOIN transactions AS t ON b.id_categorie = t.id_categorie AND b.mois = t.id_mois AND b.annee = t.id_annee GROUP BY b.id_categorie, b.mois, b.annee, b.montant_prevu, b.commentaires;
+
+
+
