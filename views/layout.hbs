@@ -3,8 +3,25 @@
   <head>
     <title>{{title}}</title>
 
+    <!-- Inclure Bootstrap CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- Inclure CSS peronnalisé -->
     <link rel="stylesheet" href="/stylesheets/style.css"> 
+
+
+    <!-- jQuery (nécessaire pour les fonctionnalités JavaScript de Bootstrap) -->
+    {{!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> --}}
+    <script src="/js/jquery/jquery.min.js"></script>
+
+    <!-- Popper.js (nécessaire pour les tooltips et les popovers) -->
+    {{!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> --}}
+    <script src="/js/popper/popper.min.js"></script>
+
+
+    <!-- Fichiers JavaScript de Bootstrap -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    {{!-- <script src="/js/bootstrap/bootstrap.min.js"></script> --}}
+
   </head>
   <body>
     <header>
@@ -24,6 +41,7 @@
       </nav>
     </header>
     {{{body}}}
+
     <footer>
 
     </footer>

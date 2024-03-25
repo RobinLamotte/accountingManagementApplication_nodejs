@@ -25,9 +25,16 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+// app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
+// app.use('/js', express.static(path.join(__dirname, 'node_modules/popper.js/dist/umd')));
+// app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')));
 app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')));
-app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')));
-//app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
+app.use('/js/jquery', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
+app.use('/js/popper', express.static(path.join(__dirname, 'node_modules/popper.js/dist/umd')));
+app.use('/js/bootstrap', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')));
+
+
+
 /*
 app.use('/css', express.static(path.join(__dirname, 'node_modules/startbootstrap-sb-admin-2/css')));
 app.use('/js', express.static(path.join(__dirname, 'node_modules/startbootstrap-sb-admin-2/js')));

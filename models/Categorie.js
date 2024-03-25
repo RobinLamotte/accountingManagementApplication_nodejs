@@ -7,6 +7,16 @@ module.exports.list = () => {
     return stmt_all.all(); 
 };
 
+module.exports.listR = () => {
+    const stmt_all = db.prepare("SELECT c.* FROM categories c WHERE c.type='r' AND c.id_user="+id_user+";");
+    return stmt_all.all(); 
+};
+
+module.exports.listD = () => {
+    const stmt_all = db.prepare("SELECT c.* FROM categories c WHERE c.type='d' AND c.id_user="+id_user+";");
+    return stmt_all.all(); 
+};
+
 module.exports.getById = (id) => {
     const stmt_get = db.prepare("SELECT * FROM categories WHERE id_categorie="+id+" AND id_user="+id_user+";");
     return stmt_get.get(); 
@@ -20,8 +30,8 @@ module.exports.update = (nom, montant_prevu, description, id_categorie) => {
 };
 
 module.exports.add = (nom, type, montant_prevu, description) => {
-    const stmt_insert = db.prepare("INSERT INTO categories (nom, type, montant_prevu, description, id_user) VALUES (?, ?, ?,, ?, ?);");
-    return stmt_insert.run(nom, type, montant_prevu, id_user); 
+    const stmt_insert = db.prepare("INSERT INTO categories (nom, type, montant_prevu, description, id_user) VALUES (?, ?, ?, ?, ?);");
+    return stmt_insert.run(nom, type, montant_prevu, description, id_user); 
 };
 
 

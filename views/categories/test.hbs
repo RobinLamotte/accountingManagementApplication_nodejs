@@ -1,29 +1,34 @@
 <section>
-<!-- Inclure les scripts Bootstrap et autres scripts ici -->
+
 <script>
-    function toggleFormAdd() {
-        const addForm = document.getElementById("categoryForm");
-        if (addForm.style.display === "none" ){
-            addForm.style.display = "block";
-        }else{
-            addForm.style.display = "none";
+    function setIdCategoryUpdate(nom, montant, description, id_categorie) {
+        const u_nom = document.getElementByName('update_nom');
+        for (var i = 0; i < u_nom.length; i++) {
+            // Vous pouvez accéder à chaque élément individuellement comme ceci
+            console.log(u_nom[i].value);
+            u_nom.value = nom;
         }
-    }
-    function toggleFormUpdate() {
-        const updateForms = document.querySelectorAll(".updateForm");
-        updateForms.forEach(form => {
-            if (form.style.display === "none" ){
-                form.style.display = "block";
-            }else{
-                form.style.display = "none";
-            }
-        });
+        document.getElementByName('update_montant').value = montant;
+        document.getElementByName('update_description').value = description;
+        document.getElementByName('update_id_categorie').value = id_categorie;
+        
     }
 </script>
 
+
+
 <div class="container mt-5">
+
+    <!-- Bouton pour ouvrir la fenêtre modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCategoryModal">
+        Ajouter une catégorie
+    </button>
+    
+
     <!-- Tableau Liste des catégories -->
     <h1>Liste des catégories</h1>
+
+    
     <table class="table">
         <thead>
             <tr>
@@ -45,63 +50,108 @@
                 <td>{{this.montant_total}}</td>
                 <td>{{this.moyenne_par_categorie}}</td>
                 <td>
-                    <button type="button" class="btn btn-primary" onclick="toggleFormUpdate();">Modifier</button>
+                    <form action="categories/update/">
+                        <input type="hidden" name="id_categorie" value={{this.id_categorie}}>
+                        <input type="submit" value="Modifier">
+                    </form>
+                    <!-- Bouton pour ouvrir la fenêtre modal -->
+                    <button type="button" data-toggle="modal" data-target="#updateCategoryModal" onclick="setIdCategoryUpdate('{{this.nom}}', '{{this.montant_prevu}}', '{{this.description}}', '{{this.id_categorie}}')"> <!-- test1', 'test2', 'test3', 42  -->
+                        ModifierPOPPER
+                    </button>
                 </td>
             </tr>
-<form class="updateForm" style="display: none;">
-    <div class="form-group">
-        <label for="nom">Nom de la catégorie :</label>
-        <input type="text" class="form-control" id="nom" name="nom" required value="{{this.nom}}">
-    </div>
-    <div class="form-group">
-        <label for="type">Type :</label>
-        <label name="type">{{this.type}} </label>
-    </div>
-    <div class="form-group">
-        <label for="montant_prevu">Montant prévu :</label>
-        <input type="number" step="0.01" class="form-control" id="montant_prevu" name="montant_prevu" value="{{this.montant_prevu}}" required>
-    </div>
-    <div class="form-group">
-        <label for="description">Description :</label>
-        <input type="text" class="form-control" id="description" name="description" required value="{{this.description}}">
-    </div>
-    <p></p>
-    <button type="submit" class="btn btn-primary">Ajouter</button>
-</form>
         {{/each}}
         </tbody>
     </table>
 </div>
-<!-- Bouton pour afficher/masquer le formulaire -->
-<button type="button" class="btn btn-primary" onclick="toggleFormAdd();">Ajouter une catégorie</button>
 
 <p></p>
 
-<!-- Formulaire d'ajout de catégorie (initialisé masqué) -->
-<form id="categoryForm" style="display: none;">
-    <div class="form-group">
-        <label for="nom">Nom de la catégorie :</label>
-        <input type="text" class="form-control" id="nom" name="nom" required>
-    </div>
-    <div class="form-group">
-        <label for="type">Type :</label>
-        <select class="form-control" id="type" name="type" required>
-            <option value="d">Dépense</option>
-            <option value="r">Revenu</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="montant_prevu">Montant prévu :</label>
-        <input type="number" step="0.01" class="form-control" id="montant_prevu" name="montant_prevu" required>
-    </div>
-    <div class="form-group">
-        <label for="description">Description :</label>
-        <input type="text" class="form-control" id="description" name="description" required>
-    </div>
-    <p></p>
-    <button type="submit" class="btn btn-primary">Ajouter</button>
-</form>
-
-
 
 </section>
+
+
+
+<section>
+<!-- Fenêtre modal pour le formulaire d'ajout de catégorie -->
+<div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel">Ajouter une catégorie</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addCategoryForm" method="post" action="categories/add">
+            <div class="form-group">
+                <label for="nom">Nom de la catégorie :</label>
+                <input type="text" class="form-control" id="nom" name="nom" required>
+            </div>
+            <div class="form-group">
+                <label for="type">Type :</label>
+                <select class="form-control" id="type" name="type" required>
+                    <option value="d">Dépense</option>
+                    <option value="r">Revenu</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="montant_prevu">Montant prévu :</label>
+                <input type="number" step="0.01" class="form-control" id="montant_prevu" name="montant_prevu" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description :</label>
+                <input type="text" class="form-control" id="description" name="description" required>
+            </div>
+            <p></p>
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+
+
+<section>
+<!-- Fenêtre modal pour le formulaire de mise à jour de catégorie -->
+<div class="modal fade" id="updateCategoryModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel">Modifier la catégorie</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{!-- INSERER LE FORM ICI --}}
+        <form method="post" action="/categories/update">
+            <div class="form-group">
+                <label for="nom">Nom de la catégorie :</label>
+                <input type="text" class="form-control" id="update_nom" name="update_nom" required>
+            </div>
+            <div class="form-group">
+                <label for="type">Type :</label>
+                <label name="update_type"> </label>
+            </div>
+            <div class="form-group">
+                <label for="montant_prevu">Montant prévu :</label>
+                <input type="number" step="0.01" class="form-control" id="update_montant_prevu" name="update_montant_prevu" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description :</label>
+                <input type="text" class="form-control" id="update_description" name="update_description">
+            </div>
+            <p></p>
+            <input type="hidden" name="update_id_categorie" >
+            <button type="submit" class="btn btn-primary">Modifier</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+

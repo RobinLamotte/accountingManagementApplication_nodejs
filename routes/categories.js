@@ -3,6 +3,7 @@ var router = express.Router();
 
 const Categorie = require("../models/Categorie.js");
 
+
 /* GET categories page. */
 router.get('/', function(req, res, next) {
   const table_categories = Categorie.list();

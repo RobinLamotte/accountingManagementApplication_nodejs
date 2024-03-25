@@ -1,38 +1,82 @@
 <section>
    <h1>Liste des transactions</h1>
    <p>
-
+        <h5>Dépenses</h5>
         <table class="table">
+            <thead>
             <tr>
-                <th>ID transaction</th>
-                <th>Date</th>
-                <th>Montant</th>
-                <th>Description</th>
-                <th>Compte</th>
+                <th onclick="sortTable(0)">ID</th>
+                <th onclick="sortTable(1)">Date</th>
+                <th onclick="sortTable(2)">Montant</th>
+                <th onclick="sortTable(3)">Catégorie</th>
+                <th onclick="sortTable(4)">Description</th>
+                <th onclick="sortTable(5)">Compte</th>
                 <th></th>
-
             </tr>
-            {{#each table_transactions}}
-                <tr>
-                    <td>{{this.id_transaction}}</td>
-                    <td>{{this.date}}</td>
-                    <td>{{this.montant}}</td>
-                    <td>{{this.description}}</td>
-                    <td>{{this.id_compte}}</td> 
-                    <td>
-                        <form action="transactions/details"> 
-                            <input type="hidden" name="id_transaction" value={{this.id_transaction}}>
-                            <input type="submit" value="Détails">
-                        </form>
-                    </td>
-                    <td>
-                        <form method="post" action="transactions/delete">
-                            <input type="hidden" name="id_transaction" value={{this.id_transaction}}>
-                            <input type="submit" value="Supprimer">
-                        </form>
-                    </td>
-                </tr>
-            {{/each}}
+            </thead>
+            <tbody id="tableTransactions">
+                {{#each table_transactions_depenses}}
+                    <tr>
+                        <td>{{this.id_transaction}}</td>
+                        <td>{{this.date}}</td>
+                        <td>{{this.montant}}</td>
+                        <td>{{this.nom_categorie}}</td>
+                        <td>{{this.description}}</td>
+                        <td>{{this.nom_compte}}</td> 
+                        <td>
+                            <form action="transactions/details"> 
+                                <input type="hidden" name="id_transaction" value={{this.id_transaction}}>
+                                <input type="submit" value="Détails">
+                            </form>
+                        </td>
+                        <td>
+                            <form method="post" action="transactions/delete">
+                                <input type="hidden" name="id_transaction" value={{this.id_transaction}}>
+                                <input type="submit" value="Supprimer">
+                            </form>
+                        </td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        
+        <h5>Revenus</h5>
+        <table class="table">
+            <thead>
+            <tr>
+                <th onclick="sortTable(0)">ID</th>
+                <th onclick="sortTable(1)">Date</th>
+                <th onclick="sortTable(2)">Montant</th>
+                <th onclick="sortTable(3)">Catégorie</th>
+                <th onclick="sortTable(4)">Description</th>
+                <th onclick="sortTable(5)">Compte</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody id="tableTransactionsRevenus">
+                {{#each table_transactions_revenus}}
+                    <tr>
+                        <td>{{this.id_transaction}}</td>
+                        <td>{{this.date}}</td>
+                        <td>{{this.montant}}</td>
+                        <td>{{this.nom_categorie}}</td>
+                        <td>{{this.description}}</td>
+                        <td>{{this.nom_compte}}</td> 
+                        <td>
+                            <form action="transactions/details"> 
+                                <input type="hidden" name="id_transaction" value={{this.id_transaction}}>
+                                <input type="submit" value="Détails">
+                            </form>
+                        </td>
+                        <td>
+                            <form method="post" action="transactions/delete">
+                                <input type="hidden" name="id_transaction" value={{this.id_transaction}}>
+                                <input type="submit" value="Supprimer">
+                            </form>
+                        </td>
+                    </tr>
+                {{/each}}
+            </tbody>
         </table>
    </p>
 </section>
@@ -57,7 +101,7 @@
       </div>
       <div class="modal-body">
         <!-- Formulaire d'ajout de transaction -->
-        <form id="ajouterTransactionForm">
+        <form id="ajouterTransactionForm" method="post" action="transactions/add">
           <div class="form-group">
             <label for="montant">Montant</label>
             <input type="number" class="form-control" id="montant" name="montant" required>
@@ -72,11 +116,17 @@
           </div>
           <div class="form-group">
             <label for="categorie">Catégorie</label>
-            <select class="form-control" id="categorie" name="categorie">
+            <select class="form-control" id="categorie" name="categorie" >
               <!-- Les options de catégories doivent être générées dynamiquement -->
-              {{#each categories}}
-                <option value="{{this.id_categorie}}">{{this.nom}}</option>
-              {{/each}}
+                <option selected disabled hidden>--- --- --- sélectionner une catégorie --- --- ---</option>
+                <option disabled>--- --- --- Dépenses --- --- ---</option>
+                {{#each categoriesD}}
+                    <option value="{{this.id_categorie}}">{{this.nom}}</option>
+                {{/each}}
+                <option disabled>--- --- --- Revenus --- --- ---</option>
+                {{#each categoriesR}}
+                    <option value="{{this.id_categorie}}">{{this.nom}}</option>
+                {{/each}}
             </select>
           </div>
           <button type="submit" class="btn btn-primary">Enregistrer</button>
@@ -90,14 +140,63 @@
 </section>
 
 
-<!-- jQuery (nécessaire pour les fonctionnalités JavaScript de Bootstrap) ->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 
-<!-- Popper.js (nécessaire pour les tooltips et les popovers) ->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script>
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("tableTransactions");
+  switching = true;
+  // Set the sorting direction to ascending:
+  dir = "asc"; 
+  /* Make a loop that will continue until
+  no switching has been done: */
+  while (switching) {
+    // Start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /* Loop through all table rows (except the
+    first, which contains table headers): */
+    for (i = 0; i < (rows.length - 1); i++) {
+      // Start by saying there should be no switching:
+      shouldSwitch = false;
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /* Check if the two rows should switch place,
+      based on the direction, asc or desc: */
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      // Each time a switch is done, increase this count by 1:
+      switchcount ++;      
+    } else {
+      /* If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again. */
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+</script>
 
-<!-- Fichiers JavaScript de Bootstrap ->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
- 
 
- -->
+
