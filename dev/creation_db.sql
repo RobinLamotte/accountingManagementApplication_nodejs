@@ -50,9 +50,3 @@ CREATE TABLE transactions (
     FOREIGN KEY (id_categorie, id_mois, id_annee) REFERENCES budget_du_mois_par_categories(id_categorie, mois, annee)
  );
 
-
-INSERT INTO users (nom, prenom, email, password) VALUES ('Lamotte', 'Robin', 'r.l@h.com', 'test');
-INSERT INTO comptes (nom, solde_init, id_user) VALUES ('Belfius', 1000, 1);
-INSERT INTO categories (nom, type, montant_prevu, id_user) VALUES ('Alimentation', 'd', 200, 1);
-INSERT INTO main.budget_du_mois_par_categories (id_categorie, mois, annee, montant_prevu, commentaires) VALUES (1, 3, 2024, 200, null);
-INSERT INTO transactions (montant, description, date, id_prevision_categorie, id_prevision_mois, id_prevision_annee, id_compte) VALUES (58, 'courses semaine 2', '2024-03-12', 1, 3, 2024, 1);

@@ -1,0 +1,47 @@
+<section>
+
+<form action="budgets/addCategory">
+    <button type="submit" class="btn btn-primary">Ajouter une catégorie au budget</button>
+</form>
+
+<p></p>
+
+<div class="container mt-5">
+    <!-- Tableau Liste des catégories -->
+    <h1>Liste des budgets catégories pour le mois de {{mois}} {{annee}}</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Catégorie</th>
+                <th>Type</th>
+                <th>Prévision</th>
+                <th>Montant réel</th>
+                <th>Commentaire</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#each table_details}}
+            <tr>
+                <td>{{this.nom}}</td>
+                <td>{{this.type_string}}</td>
+                <td>{{this.montant_prevu}}</td>
+                <td>{{this.somme_montants}}</td>
+                <td>{{this.commentaires}}</td>
+                <td>
+                    <form action="transactions/">
+                        <input type="hidden" name="mois" value={{this.mois}}>
+                        <input type="hidden" name="annee" value={{this.annee}}>
+                        <input type="hidden" name="id_categorie" value={{this.id_categorie}}>
+                        <input type="submit" value="Afficher les transactions">
+                    </form>
+                </td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</div>
+
+<p></p>
+
+
+</section>

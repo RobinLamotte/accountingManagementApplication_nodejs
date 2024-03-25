@@ -1,1 +1,46 @@
-test budget
+<section>
+
+<form action="budgets/add">
+    <button type="submit" class="btn btn-primary">Ajouter un budget</button>
+</form>
+
+<p></p>
+
+<div class="container mt-5">
+    <!-- Tableau Liste des catégories -->
+    <h1>Liste des budgets</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Mois</th>
+                <th>Total des dépenses</th>
+                <th>Total des revenus</th>
+                <th>Dépenses prévues pour le mois</th>
+                <th>Revenus prévus pour le mois</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#each table_budgets}}
+            <tr>
+                <td>{{this.mois_string}} {{this.annee}}</td>
+                <td>{{this.total_depenses}}</td>
+                <td>{{this.total_revenus}}</td>
+                <td>{{this.total_depenses_prevues}}</td>
+                <td>{{this.total_revenus_prevus}}</td>
+                <td>
+                    <form action="budgets/details/">
+                        <input type="hidden" name="mois" value={{this.mois}}>
+                        <input type="hidden" name="annee" value={{this.annee}}>
+                        <input type="submit" value="Détails du budget">
+                    </form>
+                </td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</div>
+
+<p></p>
+
+
+</section>

@@ -36,3 +36,68 @@
         </table>
    </p>
 </section>
+
+
+<section>
+
+<!-- Bouton pour ouvrir la fenêtre modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ajouterTransactionModal">
+  Ajouter une transaction
+</button>
+
+<!-- Fenêtre modal pour le formulaire d'ajout de transaction -->
+<div class="modal fade" id="ajouterTransactionModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel">Ajouter une transaction</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Formulaire d'ajout de transaction -->
+        <form id="ajouterTransactionForm">
+          <div class="form-group">
+            <label for="montant">Montant</label>
+            <input type="number" class="form-control" id="montant" name="montant" required>
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" id="description" name="description">
+          </div>
+          <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" class="form-control" id="date" name="date" required>
+          </div>
+          <div class="form-group">
+            <label for="categorie">Catégorie</label>
+            <select class="form-control" id="categorie" name="categorie">
+              <!-- Les options de catégories doivent être générées dynamiquement -->
+              {{#each categories}}
+                <option value="{{this.id_categorie}}">{{this.nom}}</option>
+              {{/each}}
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</section>
+
+
+<!-- jQuery (nécessaire pour les fonctionnalités JavaScript de Bootstrap) ->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+<!-- Popper.js (nécessaire pour les tooltips et les popovers) ->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+<!-- Fichiers JavaScript de Bootstrap ->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+ 
+
+ -->

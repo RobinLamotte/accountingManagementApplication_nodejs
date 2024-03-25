@@ -19,12 +19,6 @@ router.get('/', function(req, res, next) {
   res.render('categories/index.hbs',  {table_categories});
 });
 
-/* GET add page. */
-router.get('/add', function(req, res, next) {
-
-  res.render('categories/add.hbs');
-});
-
 /* POST add new categorie. */
 router.post('/add', function(req, res, next) {
   Categorie.add(req.body.nom, req.body.type, req.body.montant_prevu, req.body.description);
@@ -36,7 +30,6 @@ router.get('/test', function(req, res, next) {
   const table_categories = Categorie.list();
   res.render('categories/test.hbs',  {table_categories});
 });
-
 
 /* GET update page. */
 router.get('/update', function(req, res, next) {
