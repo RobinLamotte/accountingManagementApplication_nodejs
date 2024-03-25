@@ -1,0 +1,46 @@
+    <div class="container mt-5">
+        <h1 class="text-center">Ajouter une catégorie</h1>
+        <button type="button" class="btn btn-primary" onclick="toggle_text();">Ajouter une catégorie</button>
+        <section id="addCategorie" style="display: none;">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            Formulaire d'ajout
+                        </div>
+                        <div class="card-body">
+                            <form action="/categories/add" method="POST">
+                                <div class="form-group">
+                                    <label for="nom">Nom de la catégorie :</label>
+                                    <input type="text" class="form-control" id="nom" name="nom" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="type">Type :</label>
+                                    <select class="form-control" id="type" name="type">
+                                        <option value="d">Dépense</option>
+                                        <option value="r">Revenu</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="montant_prevu">Montant prévu :</label>
+                                    <input type="number" step="0.01" class="form-control" id="montant_prevu" name="montant_prevu" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Ajouter</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- Inclure les scripts Bootstrap et autres scripts ici -->
+    <script>
+        function toggle_text() {
+            var section = document.getElementById("addCategorie");
+            if (section.style.display == "none") {
+                section.style.display = "block";
+            } else {
+                section.style.display = "none";
+            }
+        }
+    </script>

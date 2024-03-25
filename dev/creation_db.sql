@@ -20,6 +20,7 @@ CREATE TABLE categories (
     nom VARCHAR(255) NOT NULL,
     type CHAR CHECK(type IN ('r', 'd')) NOT NULL,
     montant_prevu REAL DEFAULT 0 NOT NULL,
+    description TEXT,
     id_user INTEGER NOT NULL,
     FOREIGN KEY (id_user) REFERENCES users (id_user)
 );

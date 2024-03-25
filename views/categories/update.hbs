@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <h5 class="card-header text-center">Connexion</h5>
+                <div class="card-body">
+                    <form method="post" action="/categories/update">
+                        <div class="form-group">
+                            <label for="nom">Nom de la catégorie :</label>
+                            <input type="text" class="form-control" id="nom" name="nom" required value="{{categorie.nom}}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="type">Type :</label>
+                            <label name="type">{{categorie.type}} </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="montant_prevu">Montant prévu :</label>
+                            <input type="number" step="0.01" class="form-control" id="montant_prevu" name="montant_prevu" value="{{categorie.montant_prevu}}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description :</label>
+                            <input type="text" class="form-control" id="description" name="description" value="{{categorie.description}}">
+                        </div>
+                        <p></p>
+                        <input type="hidden" name="id_categorie" value="{{categorie.id_categorie}}">
+                        <button type="submit" class="btn btn-primary">Modifier</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

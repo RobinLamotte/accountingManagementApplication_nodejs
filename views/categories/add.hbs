@@ -2,7 +2,7 @@
     
     <div class="container mt-5">
         <h1>Ajouter une catégorie</h1>
-        <form action="votre_script_php.php" method="POST">
+        <form action="/categories/add" method="POST">
             <div class="form-group">
                 <label for="nom">Nom de la catégorie :</label>
                 <input type="text" class="form-control" id="nom" name="nom" required>
@@ -10,8 +10,8 @@
             <div class="form-group">
                 <label for="type">Type :</label>
                 <select class="form-control" id="type" name="type">
-                    <option value="dépense">Dépense</option>
-                    <option value="revenu">Revenu</option>
+                    <option value="d">Dépense</option>
+                    <option value="r">Revenu</option>
                 </select>
             </div>
             <div class="form-group">
@@ -27,8 +27,5 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     -->
 </section>
-
-
-
 
 

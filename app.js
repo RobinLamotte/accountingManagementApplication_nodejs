@@ -9,7 +9,8 @@ var usersRouter = require('./routes/users.js');
 const transactionsRouter = require('./routes/transactions.js');
 const categoriesRouter = require('./routes/categories.js');
 const budgetsRouter = require('./routes/budgets.js');
-const settingsRouter = require('./routes/settings.js')
+const comptesRouter = require('./routes/comptes.js');
+const settingsRouter = require('./routes/settings.js');
 
 var app = express();
 
@@ -26,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')));
 app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')));
-app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
+//app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
 /*
 app.use('/css', express.static(path.join(__dirname, 'node_modules/startbootstrap-sb-admin-2/css')));
 app.use('/js', express.static(path.join(__dirname, 'node_modules/startbootstrap-sb-admin-2/js')));
@@ -38,6 +39,7 @@ app.use('/users', usersRouter);
 app.use('/transactions', transactionsRouter);
 app.use('/categories', categoriesRouter);
 app.use('/budgets', budgetsRouter);
+app.use('/comptes', comptesRouter);
 app.use('/settings', settingsRouter);
 
 // catch 404 and forward to error handler
